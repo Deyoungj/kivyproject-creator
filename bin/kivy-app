@@ -1,0 +1,189 @@
+#!/usr/bin/bash
+
+
+
+
+
+# ---------------------------------- NOTE ---------------------------------- #
+#
+# Please keep the logic in this file consistent with the logic in the
+# `flutter.bat` script in the same directory to ensure that Flutter continues
+# to work across all platforms!
+#
+# -------------------------------------------------------------------------- #
+
+
+set -e
+
+unset CDPATH
+
+main_file=$PWD/main.py
+
+hot_reload_file=$PWD/hot_reloader.py
+
+kivy_path=$KIVY'/bin'
+
+app_name=${2^}'App'
+
+app_name_file=${2^}
+
+app_name_live=${2^}'_live'
+
+
+
+
+if [ -z "$1" ]; then
+    cat $kivy_path/manual
+fi
+
+
+if [ "$1" = "--help" ] || [ "$1" = "-help" ]; then
+    cat $kivy_path/manual
+fi
+
+
+if [ "$1" = "create" ] && [ -z "$app_name_file" ]; then
+    echo "please enter a project name"
+
+fi
+
+
+if [ "$1" = "create" ] && [ ! -z "$app_name_file" ]; then
+    if test -d $app_name_file; then
+        echo "---Directory already exists---"
+        else
+            echo "[*] Creating project ...."
+            # this creates th folder
+            sleep 5
+            mkdir $PWD/$app_name_file
+                mkdir $PWD/$app_name_file/assets
+                mkdir $PWD/$app_name_file/assets/images
+                mkdir $PWD/$app_name_file/assets/fonts
+                mkdir $PWD/$app_name_file/libs
+                mkdir $PWD/$app_name_file/libs/applibs
+                mkdir $PWD/$app_name_file/libs/uix
+                mkdir $PWD/$app_name_file/libs/uix/baseclass
+                mkdir $PWD/$app_name_file/libs/uix/kv_files
+                mkdir $PWD/$app_name_file/libs/uix/components
+                touch $PWD/$app_name_file/README.md 
+
+
+            # this creates th files               
+            sed "s/NameApp/$app_name/" $kivy_path/app.py > $PWD/$app_name_file/$app_name_file.py
+            sed "s/Live/$app_name_live/g" $kivy_path/hot_reloader.py > $PWD/$app_name_file/hot_reloader.py               
+            sed "s/app/$app_name_file/; s/NameApp/$app_name/g" $kivy_path/main.py > $PWD/$app_name_file/main.py
+            
+            cp $kivy_path/libs/uix/baseclass/home_screen.py $PWD/$app_name_file/libs/uix/baseclass
+            cp $kivy_path/libs/uix/kv_files/home.kv $PWD/$app_name_file/libs/uix/kv_files
+            cp $kivy_path/libs/uix/root.py $PWD/$app_name_file/libs/uix
+            cp $kivy_path/libs/uix/builder.py $PWD/$app_name_file/libs/uix
+            cp $kivy_path/libs/applibs/utils.py $PWD/$app_name_file/libs/applibs
+            cd $app_name_file
+            export PATH=$PATH:~/.local/bin
+            buildozer init
+            
+
+            echo $app_name_file "   (created)"
+            sleep 1
+            echo $app_name_file/hot_reloader.py "   (created)"
+            sleep 1
+            echo $app_name_file/assets/images "   (created)"
+            sleep 1
+            echo $app_name_file/main.py "   (created)"
+            sleep 1
+            echo $app_name_file/README.md "   (created)"
+            sleep 1
+            echo $app_name_file/assets/fonts "   (created)"
+            sleep 1
+            echo $app_name_file/lib/applibs/utils.py "   (created)"
+            sleep 1
+            echo $app_name_file/lib "   (created)"
+            sleep 1
+            echo $app_name_file/app.py "   (created)"
+            sleep 1
+            echo $app_name_file/lib/applibs "   (created)"
+            sleep 1
+            echo $app_name_file/lib/uix/baseclass/home_screen.py "   (created)"
+            sleep 1
+            echo $app_name_file/lib/uix "   (created)"
+            sleep 1
+            echo $app_name_file/lib/uix/baseclass "   (created)"
+            sleep 1
+            echo $app_name_file/lib/uix/root.py.py "   (created)"
+            sleep 1
+            echo $app_name_file/lib/uix/kv_files "   (created)"
+            sleep 1
+            echo $app_name_file/lib/uix/builder.py "   (created)"
+            sleep 1
+            echo $app_name_file/lib/uix/components "   (created)"
+            sleep 1
+            echo $app_name_file/lib/uix/kv_files/home.kv "   (created)"
+            sleep 1
+            echo $app_name_file/lib/buildozer.spec "   (created)"
+
+            sleep 3
+            echo ''
+            echo "---Project successfully created---"
+            echo ''
+            echo 'in order to run your application, type:'
+            echo ''
+            echo '   $ cd '$app_name_file
+            echo '   $ kivy-app run     # runs the main.py file'
+            echo '   $ kivy-app run -r  # runs the hotreloader.py file'
+            
+            
+    fi
+    
+                
+                                    
+
+    
+fi
+
+
+if [ "$1" = "run" ] && [ "$app_name_file" = "-r" ]; then
+    if test -f $hot_reload_file; then
+        echo "hot_reloader file present"
+        DEBUG=1 python3 $hot_reload_file
+        else
+            echo "missing file: hot_reloder.py file"
+    fi
+        
+       
+
+
+fi
+
+if [ "$1" = "run" ] && [ -z "$app_name_file" ]; then
+    if test -f $main_file; then
+        
+        python3 main.py
+        else
+            echo "missing file: main.py file"
+    fi
+    
+fi
+
+if [ "$1" = "build" ]; then
+    export PATH=$PATH:~/.local/bin
+    buildozer -v android debug
+    
+fi
+
+if [ "$1" = "build-on-device" ]; then
+    export PATH=$PATH:~/.local/bin
+    buildozer -v android debug deploy run logcat
+
+fi
+
+if [ "$1" = "build-on-device-info" ]; then
+    echo ''
+    echo "[1] plug your Android device to your computer"
+    echo "[2] turn on Debug mode on your device"
+    echo "[3] type kivy-app build-on-device"
+
+fi
+
+
+
+

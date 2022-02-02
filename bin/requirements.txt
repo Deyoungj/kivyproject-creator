@@ -1,0 +1,5 @@
+kivy
+kivymd
+kaki
+Cython==0.29.19
+buildozer

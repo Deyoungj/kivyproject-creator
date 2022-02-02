@@ -1,0 +1,56 @@
+
+██╗░░██╗██╗██╗░░░██╗██╗░░░██╗  ░█████╗░██████╗░██████╗░
+██║░██╔╝██║██║░░░██║╚██╗░██╔╝  ██╔══██╗██╔══██╗██╔══██╗
+█████═╝░██║╚██╗░██╔╝░╚████╔╝░  ███████║██████╔╝██████╔╝
+██╔═██╗░██║░╚████╔╝░░░╚██╔╝░░  ██╔══██║██╔═══╝░██╔═══╝░
+██║░╚██╗██║░░╚██╔╝░░░░░██║░░░  ██║░░██║██║░░░░░██║░░░░░
+╚═╝░░╚═╝╚═╝░░░╚═╝░░░░░░╚═╝░░░  ╚═╝░░╚═╝╚═╝░░░░░╚═╝░░░░░
+
+░█████╗░██████╗░███████╗░█████╗░████████╗░█████╗░██████╗░
+██╔══██╗██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗
+██║░░╚═╝██████╔╝█████╗░░███████║░░░██║░░░██║░░██║██████╔╝
+██║░░██╗██╔══██╗██╔══╝░░██╔══██║░░░██║░░░██║░░██║██╔══██╗
+╚█████╔╝██║░░██║███████╗██║░░██║░░░██║░░░╚█████╔╝██║░░██║
+░╚════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝ BY CHIDI
+___________________________________________________________________
+ Manage your Kivy app development.
+
+Common Commands:
+
+   kivy-app create <output directory>
+      Create a new Kivy project in the specified directory.
+
+
+   kivy-app run [options]
+	This runs your application.
+
+   kivy-app build
+      This builds your app into an apk.
+
+
+usage: kivy-app <commands> [arguments}
+
+-r                        this runs your application with an 
+                          hot reloader.
+
+Available Commands:
+
+  create [directory]      creates a new kivy project.
+  
+  run                     this runs your kivy application.
+
+  run -r                  this runs your app with an hot reloader.
+
+  build                   this builds your app in to an apk.
+
+  build-on-device         deploy app on android,run it,and get back
+                          log into the console. [NOTE]: this only 
+                          works if you already compiled your
+                          application at least once. 
+
+  build-on-device-info    instructions    
+
+
+
+
+
